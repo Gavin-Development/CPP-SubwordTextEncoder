@@ -5,7 +5,7 @@
 
 std::list<std::string> load_text() {
     std::list<std::string> texts;
-    std::ifstream input("/home/scot/Downloads/readme.txt");
+    std::ifstream input("readme.txt");
     std::string lineBuffer;
     while (std::getline(input, lineBuffer)) {
         texts.push_back(lineBuffer);
