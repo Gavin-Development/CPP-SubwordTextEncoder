@@ -27,15 +27,28 @@ void print_table(std::list<std::string> vocab_list, unsigned long int word_size)
     std::cout << std::endl;
 }
 
-int main() {
-    tokenizers::SubwordTextEncoder TextEncoder(1000, "Test");
-    std::list<std::string> texts = load_text();
-    auto l_front = texts.cbegin();
-    std::cout << "Example Of Vocab: " << *l_front << std::endl;
-    TextEncoder.build_vocabulary(texts);
-    std::list<std::string> vocab = TextEncoder.get_vocabulary();
-    std::cout << "Top 5 Vocabulary: " << std::endl;
-    std::cout << "Size of word " << TextEncoder.largest_word << std::endl;
-    print_table(vocab, TextEncoder.largest_word);
+int main(int argc, char *argv[]) {
+    if (argc == 1) {
+        tokenizers::SubwordTextEncoder TextEncoder(1000, "Test");
+        std::list<std::string> texts = load_text();
+        auto l_front = texts.cbegin();
+        std::cout << "Example Of Vocab: " << *l_front << std::endl;
+        TextEncoder.build_vocabulary(texts);
+        std::list<std::string> vocab = TextEncoder.get_vocabulary();
+        std::cout << "Top 5 Vocabulary: " << std::endl;
+        std::cout << "Size of word " << TextEncoder.largest_word << std::endl;
+        print_table(vocab, TextEncoder.largest_word);   
+    }
+    else {
+        tokenizers::SubwordTextEncoder TextEncoder(*argv[1], "Test");
+        std::list<std::string> texts = load_text();
+        auto l_front = texts.cbegin();
+        std::cout << "Example Of Vocab: " << *l_front << std::endl;
+        TextEncoder.build_vocabulary(texts);
+        std::list<std::string> vocab = TextEncoder.get_vocabulary();
+        std::cout << "Top 5 Vocabulary: " << std::endl;
+        std::cout << "Size of word " << TextEncoder.largest_word << std::endl;
+        print_table(vocab, TextEncoder.largest_word);
+    }
     return 0;
 }
