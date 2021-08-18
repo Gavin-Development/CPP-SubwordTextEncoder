@@ -1,0 +1,1 @@
+cmake --build . --config Debug --target all -j6 --
