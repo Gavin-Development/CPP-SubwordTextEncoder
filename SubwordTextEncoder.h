@@ -41,7 +41,8 @@ namespace tokenizers {
     public:
         unsigned long long int _target_vocab_size;
         std::list<std::string> vocabulary;
-
+        unsigned long long int largest_word;
+        unsigned int smallest_word;
 
         explicit SubwordTextEncoder(unsigned long long int target_vocab_size, std::string name);
 
