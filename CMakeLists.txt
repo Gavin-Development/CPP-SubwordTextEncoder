@@ -21,3 +21,4 @@ target_link_libraries(TokenizerLib nlohmann_json::nlohmann_json pthread)
 
 add_executable(TokenizerTest main.cpp)
 target_link_libraries(TokenizerTest TokenizerLib)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/readme.txt ${CMAKE_CURRENT_BINARY_DIR}/readme.txt COPYONLY)
