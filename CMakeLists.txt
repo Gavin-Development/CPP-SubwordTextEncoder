@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
-project(TokenizerLib)
+project(TokenizerLibTest)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -15,7 +15,9 @@ if(NOT json_POPULATED)
     add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-add_library(TokenizerLib SHARED SubwordTextEncoder.cpp SubwordTextEncoder.h)
+add_library(TokenizerLib SubwordTextEncoder.cpp SubwordTextEncoder.h)
 set_target_properties(TokenizerLib PROPERTIES PREFIX "")
-target_link_libraries(TokenizerLib -static)
-target_link_libraries(TokenizerLib nlohmann_json::nlohmann_json)
+target_link_libraries(TokenizerLib nlohmann_json::nlohmann_json pthread)
+
+add_executable(TokenizerTest main.cpp)
+target_link_libraries(TokenizerTest TokenizerLib)
