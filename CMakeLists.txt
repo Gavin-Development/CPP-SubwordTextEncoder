@@ -3,6 +3,20 @@ project(TokenizerLibTest)
 
 set(CMAKE_CXX_STANDARD 14)
 
+enable_testing()
+find_package(GTest REQUIRED)
+
+macro(package_add_test TESTNAME FILES LIBRARIES)
+    add_executable(${TESTNAME} ${FILES})
+    # Link google test
+    target_link_libraries(${TESTNAME} gtest gtest_main rt pthread ${LIBRARIES})
+
+    gtest_add_tests(${TESTNAME}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+    )
+    set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
+endmacro()
+
 include(FetchContent)
 
 FetchContent_Declare(json
@@ -18,6 +32,8 @@ endif()
 add_library(TokenizerLib SubwordTextEncoder.cpp SubwordTextEncoder.h)
 set_target_properties(TokenizerLib PROPERTIES PREFIX "")
 target_link_libraries(TokenizerLib nlohmann_json::nlohmann_json pthread)
+
+package_add_test(runUnitTests unittests.cpp TokenizerLib)
 
 add_executable(TokenizerTest main.cpp)
 target_link_libraries(TokenizerTest TokenizerLib)

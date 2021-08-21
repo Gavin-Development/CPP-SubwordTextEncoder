@@ -102,7 +102,13 @@ int main(int argc, char *argv[]) {
         std::cout << "Top 5 Vocabulary: " << std::endl;
         std::cout << "Size of largest word " << TextEncoder.largest_word << std::endl;
         std::cout << "Size of vocabulary " << TextEncoder.get_vocab_size() << std::endl;
-        print_table(vocab, TextEncoder.largest_word);   
+        print_table(vocab, TextEncoder.largest_word);
+        std::list<int> encoded_words = TextEncoder.encode("Hello");
+        std::cout << "Hello encoded ";
+        for (auto &word: encoded_words) {
+            std::cout << word << " ";
+        }
+        std::cout << std::endl;
     }
     else if (handle == 2){
         tokenizers::SubwordTextEncoder TextEncoder(vocab_size, "Test");
