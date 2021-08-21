@@ -53,6 +53,8 @@ namespace tokenizers {
         int get_vocab_size() const { return _vocab_size; };
 
         std::list<std::string> get_vocabulary() const { return vocabulary; };
+        
+        std::string get_name() const {return _name; };
 
         void build_vocabulary(const std::list<std::string> &texts);
 
