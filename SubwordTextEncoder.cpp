@@ -222,5 +222,5 @@ std::string SubwordTextEncoder::decode(const std::list<int>& sentence_encoded) {
     for (auto& id: sentence_encoded) {
         out += SubwordTextEncoder::_id_to_subword(id - 1);
     }
-    return out.substr(0, out.size()-1);
+    return out;
 }
