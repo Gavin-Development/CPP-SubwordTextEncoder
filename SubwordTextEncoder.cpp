@@ -220,7 +220,7 @@ std::list<int> SubwordTextEncoder::_pad_incr(const std::list<int>& ids) {
 std::string SubwordTextEncoder::decode(const std::list<int>& sentence_encoded) {
     std::string out;
     for (auto& id: sentence_encoded) {
-        out += SubwordTextEncoder::_id_to_subword(id - 1) + " ";
+        out += SubwordTextEncoder::_id_to_subword(id - 1);
     }
     return out.substr(0, out.size()-1);
 }
