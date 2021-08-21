@@ -37,7 +37,7 @@ TEST_F(SubwordTextEncoderTest, NameIsInitilised) {
 }
 
 TEST_F(SubwordTextEncoderTest, VocabsizeIsInitilised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), vocab_size) << "Vocab Size is not initilised correctly.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initilised correctly.";
 }
 
 TEST_F(SubwordTextEncoderTest, VocabBuilds) {
@@ -50,7 +50,7 @@ TEST_F(SubwordTextEncoderTest, EncodesHello) {
 }
 
 TEST_F(SubwordTextEncoderTest, DecodesHello) {
-    ASSERT_EQ(TextEncoderVocabFilled.decode(hello_encoded).length(), 5) << "Decoding did not work. Size different to expected value.";
+    ASSERT_EQ(TextEncoderVocabFilled.decode(hello_encoded).length(), hello_decoded.length()) << "Decoding did not work. Size different to expected value. Returned value: " << TextEncoderVocabFilled.decode(hello_encoded) << " Expected Length: " << hello_decoded;
     EXPECT_EQ(TextEncoderVocabFilled.decode(hello_encoded), hello_decoded) << "Decoding is not correct. Do you need to update the test phrase?";
 }
 
