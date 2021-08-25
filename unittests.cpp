@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <fstream>
-#include "SubwordTextEncoder.h"
+#include "Tokenizers.h"
 
 std::list<std::string> load_text(std::string filename) {
     std::list<std::string> texts;
