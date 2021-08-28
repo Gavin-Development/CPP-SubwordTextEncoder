@@ -66,4 +66,14 @@ namespace tokenizers {
 
         std::string decode(const std::list<int> &sentence_encoded);
     };
+
+    class BytePairTextEncoder {
+        private:
+            const std::string END_OF_WORD = "</w>";
+            const unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency();
+            size_t _vocab_size;
+        public:
+            size_t _target_vocab_size;
+            explicit BytePairTextEncoder(size_t target_vocab_size, std::string name);
+    };
 }
