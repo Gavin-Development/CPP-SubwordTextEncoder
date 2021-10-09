@@ -3,17 +3,30 @@ project(TokenizerLibTest)
 
 set(CMAKE_CXX_STANDARD 14)
 
+### START OF CONFIGURING GTEST
+configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+        RESULT_VARIABLE result
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+execute_process(COMMAND ${CMAKE_COMMAND} --build .
+        RESULT_VARIABLE result
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+
+# Add googletest directly to our build. This defines
+# the gtest and gtest_main targets.
+add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
+        ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
+        EXCLUDE_FROM_ALL)
+### END OF CONFIGURING GTEST
+
 enable_testing()
-find_package(GTest REQUIRED)
+# find_package(GTest REQUIRED)
 
 macro(package_add_test TESTNAME FILES LIBRARIES)
     add_executable(${TESTNAME} ${FILES})
     # Link google test
     target_link_libraries(${TESTNAME} gtest gtest_main rt pthread ${LIBRARIES})
 
-    gtest_add_tests(${TESTNAME}
-        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    )
     set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
 endmacro()
 
