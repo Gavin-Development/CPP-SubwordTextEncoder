@@ -43,15 +43,15 @@ class BytePairTextEncoderTest : public ::testing::Test {
 };
 
 TEST_F(SubwordTextEncoderTest, VocabEmptyOnInitialisation) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initilistation.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
 }
 
 TEST_F(SubwordTextEncoderTest, NameIsInitilised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initilised correctly.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initialised correctly.";
 }
 
 TEST_F(SubwordTextEncoderTest, VocabsizeIsInitilised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initilised correctly.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initialised correctly.";
 }
 
 TEST_F(SubwordTextEncoderTest, VocabBuilds) {
@@ -68,16 +68,17 @@ TEST_F(SubwordTextEncoderTest, DecodesHello) {
     EXPECT_EQ(TextEncoderVocabFilled.decode(hello_encoded), hello_decoded) << "Decoding is not correct. Do you need to update the test phrase?";
 }
 
+
 TEST_F(BytePairTextEncoderTest, VocabEmptyOnInitialisation) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initilistation.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
 }
 
 TEST_F(BytePairTextEncoderTest, NameIsInitilised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initilised correctly.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initialised correctly.";
 }
 
 TEST_F(BytePairTextEncoderTest, VocabsizeIsInitilised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initilised correctly.";
+    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initialised correctly.";
 }
 
 TEST_F(BytePairTextEncoderTest, VocabBuilds) {
