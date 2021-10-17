@@ -42,7 +42,7 @@ if(NOT json_POPULATED)
     add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
-add_library(TokenizerLib SubwordTextEncoder.cpp Tokenizers.h)
+add_library(TokenizerLib SubwordTextEncoder.cpp BytePairTextEncoder.cpp Tokenizers.h)
 set_target_properties(TokenizerLib PROPERTIES PREFIX "")
 target_link_libraries(TokenizerLib nlohmann_json::nlohmann_json pthread)
 
