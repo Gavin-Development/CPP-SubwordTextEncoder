@@ -1,6 +1,6 @@
+#include "Tokenizers.h"
 #include <gtest/gtest.h>
 #include <fstream>
-#include "Tokenizers.h"
 
 std::list<std::string> load_text(std::string filename) {
     std::list<std::string> texts;
@@ -30,6 +30,8 @@ class SubwordTextEncoderTest : public ::testing::Test {
 
 class BytePairTextEncoderTest : public ::testing::Test {
     protected:
+    BytePairTextEncoderTest() : TextEncoderVocabFilled(0, std::string(), 0, std::string()) {}
+
     void SetUp() override {
         vocab = load_text("./readme.txt");
         TextEncoderVocabFilled.build_vocabulary(vocab);
@@ -37,20 +39,23 @@ class BytePairTextEncoderTest : public ::testing::Test {
     std::list<std::string> vocab;
     std::string name = "Test";
     int vocab_size = 1000;
-    tokenizers::BytePairTextEncoder TextEncoderVocabEmpty = tokenizers::BytePairTextEncoder(vocab_size, name);
-    tokenizers::BytePairTextEncoder TextEncoderVocabFilled = tokenizers::BytePairTextEncoder(vocab_size, name);
+    tokenizers::BytePairTextEncoder TextEncoderVocabEmpty = tokenizers::BytePairTextEncoder(0, std::string(),
+                                                                                            vocab_size, name);
+    tokenizers::BytePairTextEncoder TextEncoderVocabFilled = tokenizers::BytePairTextEncoder(0, std::string(),
+                                                                                             vocab_size, name);
     std::string hello_decoded = "Hello";
+    std::list<int> hello_encoded{ 73, 102, 109, 109, 112 };
 };
 
 TEST_F(SubwordTextEncoderTest, VocabEmptyOnInitialisation) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
 }
 
-TEST_F(SubwordTextEncoderTest, NameIsInitilised) {
+TEST_F(SubwordTextEncoderTest, NameIsInitialised) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initialised correctly.";
 }
 
-TEST_F(SubwordTextEncoderTest, VocabsizeIsInitilised) {
+TEST_F(SubwordTextEncoderTest, VocabsizeIsInitialised) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initialised correctly.";
 }
 
@@ -73,11 +78,11 @@ TEST_F(BytePairTextEncoderTest, VocabEmptyOnInitialisation) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
 }
 
-TEST_F(BytePairTextEncoderTest, NameIsInitilised) {
+TEST_F(BytePairTextEncoderTest, nameIsInitialised) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initialised correctly.";
 }
 
-TEST_F(BytePairTextEncoderTest, VocabsizeIsInitilised) {
+TEST_F(BytePairTextEncoderTest, VocabsizeIsInitialised) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initialised correctly.";
 }
 
