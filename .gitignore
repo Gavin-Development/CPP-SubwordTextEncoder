@@ -76,6 +76,7 @@ fabric.properties
 
 cmake-build-debug
 cmake-build-debug-*
+cmake-build-release-*
 CMakeFiles/
 _deps/
 Makefile
