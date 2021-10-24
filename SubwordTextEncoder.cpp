@@ -9,6 +9,8 @@
 using json = nlohmann::json; // For convince sake.
 using namespace tokenizers;
 
+const std::string SubwordTextEncoder::END_OF_WORD = "</w>";
+
 SubwordTextEncoder::SubwordTextEncoder(unsigned long long int target_vocab_size, std::string name) {
     _vocab_size = 0;
     _target_vocab_size = target_vocab_size;
