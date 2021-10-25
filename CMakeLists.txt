@@ -77,6 +77,7 @@ package_add_test(runUnitTests unittests.cpp TokenizerLib)
 add_executable(TokenizerTest main.cpp)
 target_link_libraries(TokenizerTest TokenizerLib)
 
-pybind11_add_module(GavinTokenizers MODULE NO_EXTRAS SubwordTextEncoder.cpp Tokenizers.h)
+pybind11_add_module(GavinTokenizers MODULE NO_EXTRAS PythonFuncsDefinitions.cpp SubwordTextEncoder.cpp Tokenizers.h)
 target_link_libraries(GavinTokenizers PUBLIC nlohmann_json::nlohmann_json)
 set_target_properties(GavinTokenizers PROPERTIES SUFFIX ".pyd")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test.py ${CMAKE_CURRENT_BINARY_DIR}/test.py COPYONLY)
