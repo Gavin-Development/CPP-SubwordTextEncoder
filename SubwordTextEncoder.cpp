@@ -142,8 +142,6 @@ void SubwordTextEncoder::build_vocabulary(const std::list<std::string>& texts) {
             vocabulary.push_back(best->first);
             _subword_to_id[best->first] = _vocab_size;
             counts.erase(best->first);
-            if (best->first.length() > largest_word) largest_word = best->first.length();
-            if (best->first.length() < smallest_word) smallest_word = best->first.length();
             ++_vocab_size;
         }
     }

@@ -9,10 +9,6 @@
 #include <future>
 #include <regex>
 
-typedef std::pair<std::list<std::string>, int> PairFrequency;
-typedef std::map<std::list<std::string>, int> PairFrequencies;
-typedef std::map<std::string, int> WordFrequencies;
-
 using json = nlohmann::json; // For convince sake.
 namespace tokenizers {
     class SubwordTextEncoder {
@@ -38,7 +34,7 @@ namespace tokenizers {
 
         static std::list<std::list<std::string>> _chunk_corpus(std::list<std::string> list, unsigned int n);
 
-        const unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency();
+        const unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency() * .8;
 
         static std::list<std::list<std::string>> _batch_word_tokenize(const std::list<std::string> &texts);
 
@@ -74,22 +70,5 @@ namespace tokenizers {
         std::list<int> encode(const std::string &sentence);
 
         std::string decode(const std::list<int> &sentence_encoded);
-    };
-
-    class BytePairTextEncoder : public SubwordTextEncoder{
-    public:
-        explicit BytePairTextEncoder(unsigned long long int targetVocabSize, std::string name1,
-                                     unsigned long long int target_vocab_size, std::string name);
-
-        static WordFrequencies _word_counts(const std::list<std::list<std::string>>& tokenized_text);
-        static std::list<std::list<std::string>> _batch_word_tokenize(const std::list<std::string> &texts);
-        static std::list<std::string> word_tokenize(const std::string &sentence);
-        static std::list<std::string> _split(const std::string &delimiter, std::string s);
-
-
-        static PairFrequencies get_pair_frequency(const WordFrequencies& counts);
-        static WordFrequencies merge_vocab(std::_Tree_iterator<std::_Tree_val<std::_Tree_simple_types<std::pair<const std::list<std::basic_string<char>>, int>>>> pair, WordFrequencies vocab_in);
-
-        void build_vocabulary(const std::list<std::string> &texts) override;
     };
 }

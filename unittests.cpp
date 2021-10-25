@@ -28,25 +28,6 @@ class SubwordTextEncoderTest : public ::testing::Test {
     std::string hello_decoded = "Hello";
 };
 
-class BytePairTextEncoderTest : public ::testing::Test {
-    protected:
-    BytePairTextEncoderTest() : TextEncoderVocabFilled(0, std::string(), 0, std::string()) {}
-
-    void SetUp() override {
-        vocab = load_text("./readme.txt");
-        TextEncoderVocabFilled.build_vocabulary(vocab);
-    }
-    std::list<std::string> vocab;
-    std::string name = "Test";
-    int vocab_size = 1000;
-    tokenizers::BytePairTextEncoder TextEncoderVocabEmpty = tokenizers::BytePairTextEncoder(0, std::string(),
-                                                                                            vocab_size, name);
-    tokenizers::BytePairTextEncoder TextEncoderVocabFilled = tokenizers::BytePairTextEncoder(0, std::string(),
-                                                                                             vocab_size, name);
-    std::string hello_decoded = "Hello";
-    std::list<int> hello_encoded{ 73, 102, 109, 109, 112 };
-};
-
 TEST_F(SubwordTextEncoderTest, VocabEmptyOnInitialisation) {
     EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
 }
@@ -69,33 +50,6 @@ TEST_F(SubwordTextEncoderTest, EncodesHello) {
 }
 
 TEST_F(SubwordTextEncoderTest, DecodesHello) {
-    ASSERT_EQ(TextEncoderVocabFilled.decode(hello_encoded).length(), hello_decoded.length()) << "Decoding did not work. Size different to expected value. Returned value: " << TextEncoderVocabFilled.decode(hello_encoded) << " Expected Length: " << hello_decoded;
-    EXPECT_EQ(TextEncoderVocabFilled.decode(hello_encoded), hello_decoded) << "Decoding is not correct. Do you need to update the test phrase?";
-}
-
-
-TEST_F(BytePairTextEncoderTest, VocabEmptyOnInitialisation) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocabulary size should be 0 on initialisation.";
-}
-
-TEST_F(BytePairTextEncoderTest, nameIsInitialised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_name(), name) << "Name is not initialised correctly.";
-}
-
-TEST_F(BytePairTextEncoderTest, VocabsizeIsInitialised) {
-    EXPECT_EQ(TextEncoderVocabEmpty.get_vocab_size(), 0) << "Vocab Size is not initialised correctly.";
-}
-
-TEST_F(BytePairTextEncoderTest, VocabBuilds) {
-    EXPECT_EQ(TextEncoderVocabFilled.get_vocabulary().size(), vocab_size) << "Vocabulary is not building.";
-}
-
-TEST_F(BytePairTextEncoderTest, EncodesHello) {
-    ASSERT_EQ(TextEncoderVocabFilled.encode("Hello").size(), 5) << "Encoding did not work. Size different than expected.";
-    EXPECT_EQ(TextEncoderVocabFilled.encode("Hello"), hello_encoded) << "Encoding is not correct. Do you need to update the test phrase?";
-}
-
-TEST_F(BytePairTextEncoderTest, DecodesHello) {
     ASSERT_EQ(TextEncoderVocabFilled.decode(hello_encoded).length(), hello_decoded.length()) << "Decoding did not work. Size different to expected value. Returned value: " << TextEncoderVocabFilled.decode(hello_encoded) << " Expected Length: " << hello_decoded;
     EXPECT_EQ(TextEncoderVocabFilled.decode(hello_encoded), hello_decoded) << "Decoding is not correct. Do you need to update the test phrase?";
 }
